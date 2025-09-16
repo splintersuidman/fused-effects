@@ -88,6 +88,9 @@ library
     Control.Carrier.Fresh.Strict
     Control.Carrier.Interpret
     Control.Carrier.Lift
+    Control.Carrier.Log.Ignoring
+    Control.Carrier.Log.Printing
+    Control.Carrier.Log.Returning
     Control.Carrier.NonDet.Church
     Control.Carrier.Reader
     Control.Carrier.State.Church
@@ -112,6 +115,7 @@ library
     Control.Effect.Fresh
     Control.Effect.Labelled
     Control.Effect.Lift
+    Control.Effect.Log
     Control.Effect.NonDet
     Control.Effect.Reader
     Control.Effect.Reader.Labelled
