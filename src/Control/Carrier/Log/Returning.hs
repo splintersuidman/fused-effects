@@ -35,7 +35,7 @@ import Data.Bifunctor (first)
 -- 'runLogWith' f ('logMessage' s) = 'pure' (f s, ())
 -- @
 -- @
--- 'runLogWith' f (pure a) = 'pure' (f mempty, a)
+-- 'runLogWith' f (pure a) = 'pure' ('mempty', a)
 -- @
 -- @
 -- 'runLogWith' @'Int' 'Data.Semigroup.Sum' ('logMessage' (1 :: 'Int') >> 'logMessage' (2 :: 'Int')) = 'pure' ('Data.Semigroup.Sum' 3, ())
@@ -68,7 +68,7 @@ newtype LogC l o m a = LogC { runLogC :: StateC (l -> o, o) m a }
 instance (Monoid o, Algebra sig m) => Algebra (Log l :+: sig) (LogC l o m) where
   alg hdl sig ctx = LogC $ case sig of
     L (LogMessage msg) -> StateC $ \(f, o) -> do
-      let !o' = o <> f msg
+      let !o' = mappend o (f msg)
       pure ((f, o'), ctx)
     R other            -> alg (runLogC . hdl) (R other) ctx
   {-# INLINE alg #-}
